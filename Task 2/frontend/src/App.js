@@ -1,12 +1,22 @@
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import NotesList from "./components/NotesList";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import "./App.css";
 
+// import PageNotFound from "./commponents/PageNotFound";
 
-const app = () =>{
+function App() {
   return (
-    <div className="App">
-    <NotesList />
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route exact path="/notes" Component={NotesList} />
+        <Route exact path="/signup" Component={Register} />
+        <Route exact path="/" Component={Login} />
+        {/* <Route path="*" Component={PageNotFound} /> */}
+      </Routes>
+    </Router>
+  );
 }
 
-export default app;
+export default App;

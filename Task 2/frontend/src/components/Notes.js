@@ -1,11 +1,11 @@
-import { FaTrash } from "react-icons/fa";
+import {FaTrash } from "react-icons/fa";
 import axios from "axios";
 
 const Notes = (props) =>{
     const deleteNote = (id) =>{
         // console.log(e);
         axios
-        .delete("http://localhost:5000/delete/" + id)
+        .delete("http://localhost:9000/todo/info/" + id)
         .then((res) => {
           // console.log(res.data);
           props.toggleRefersh();
@@ -17,9 +17,9 @@ const Notes = (props) =>{
     
 return(
     props.data.map((i)=> (<div className="notesArea">
-    <p style={{fontSize:"26px"}}>{i.notesdata}</p>
+    <p style={{fontSize:"26px"}}>{i.task}</p>
     <p style={{marginTop:"10px",fontSize:"12px"}}>{i.date}</p>
-    <p style={{textAlign:"end"}}><FaTrash onClick={(e) => deleteNote(i.id)} /></p>
+    <p style={{textAlign:"end"}}><FaTrash onClick={(e) => deleteNote(i._id)} /></p>
     </div>))
 )
 }

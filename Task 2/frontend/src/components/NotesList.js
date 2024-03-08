@@ -1,9 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import Notes from "./Notes";
-import { FaAlignLeft } from "react-icons/fa";
-
+import { FaAlignLeft, FaDoorOpen } from "react-icons/fa";
+import { useNavigate} from "react-router-dom";
 const NotesList = () => {
+  const navigate = useNavigate();
   const [note, setNote] = useState("");
   const [getAll, setGetAll] = useState([]);
   const [refers, toggleRefersh] = useState(true);
@@ -11,7 +12,7 @@ const NotesList = () => {
   const addNote = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/", { notesdata: note })
+      .post("http://localhost:9000/todo/info", { task: note })
       .then((res) => {
         // console.log(res);
         toggleRefersh(!refers);
@@ -22,29 +23,42 @@ const NotesList = () => {
       });
   };
 
-  const fetchAll = () =>{
+  const fetchAll = () => {
     axios
-      .get("http://localhost:5000/all")
+      .get("http://localhost:9000/todo/info")
       .then((res) => {
         console.log(res.data);
-        setGetAll(Object.values(res.data).flat())
+        setGetAll(Object.values(res.data).flat());
       })
       .catch((err) => {
         console.log(err);
-      }); 
-  }
+      });
+  };
 
   useEffect(() => {
-   fetchAll();
-  },[refers]);
+    fetchAll();
+  }, [refers]);
+  const logout = () => {
+    navigate("/");
+
+  };
   return (
     <Fragment>
       <div className="navbar">
-        <span>
-        <FaAlignLeft />
-
-        </span>
-        <h1>Notes</h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <h1>
+            <FaAlignLeft /> Notes
+          </h1>
+          <span onClick={logout}>
+            <FaDoorOpen style={{ fontSize: "50px" }} />
+          </span>
+        </div>
       </div>
       <div className="mainDiv">
         <form onSubmit={(e) => addNote(e)}>
@@ -60,7 +74,7 @@ const NotesList = () => {
         </form>
       </div>
       <div className="showNotes">
-        <Notes  data={getAll} toggleRefersh={() => toggleRefersh(!refers)}/>
+        <Notes data={getAll} toggleRefersh={() => toggleRefersh(!refers)} />
       </div>
     </Fragment>
   );

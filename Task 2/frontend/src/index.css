@@ -5,8 +5,9 @@
 }
 
 body {
-  background-color: #7ae4de;
-}
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("https://coolbackgrounds.io/images/backgrounds/index/ranger-4df6c1b6.png");}
 .navbar{
   background-color: #000;
   color: #fff;
@@ -22,7 +23,6 @@ body {
   margin-top: 60px;
 }
 .todoInput{
-  width: 404px;
   font-size: 18px;
    border-radius: 8px;
     border: none;
